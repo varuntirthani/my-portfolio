@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { CFATopic } from "@/data/cfa-data";
+import { CFANoteText } from "@/components/cfa/CFANoteText";
 
 type NoteDrawerProps = {
   topic: CFATopic;
@@ -102,7 +103,7 @@ export function NoteDrawer({ topic, onClose }: NoteDrawerProps) {
                               className="flex gap-3 text-sm leading-6 text-[#d1d5db]"
                             >
                               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#3b82f6]" />
-                              <span>{note}</span>
+                              <CFANoteText text={note} />
                             </li>
                           ))}
                         </ul>

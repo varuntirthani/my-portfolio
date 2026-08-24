@@ -8,6 +8,7 @@ import {
   type Flashcard,
 } from "@/lib/cfa-utils";
 import { cfaData } from "@/data/cfa-data";
+import { CFANoteText } from "@/components/cfa/CFANoteText";
 
 type FlashcardModeProps = {
   activeLevel: CFALevelKey;
@@ -160,7 +161,10 @@ export function FlashcardMode({
           >
             <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-[#1e1e2e] bg-[#13131a] p-8 [backface-visibility:hidden]">
               <p className="text-center text-lg leading-8 text-[#f0f0f5]">
-                {currentCard.note}
+                <CFANoteText
+                  text={currentCard.note}
+                  className="inline leading-8"
+                />
               </p>
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl border border-[#3b82f6]/40 bg-[#13131a] p-8 [backface-visibility:hidden] [transform:rotateY(180deg)]">
