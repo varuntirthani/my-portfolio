@@ -10,6 +10,6 @@ export const nav = [
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
   { label: "CFA Hub", href: "/cfa" },
-  { label: "Writing", href: "/writing", disabled: true },
+  { label: "Blog", href: "/blogs" },
   { label: "Research Lab", href: "/research", disabled: true },
 ] as const;

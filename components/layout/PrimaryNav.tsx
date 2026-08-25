@@ -11,7 +11,9 @@ export function PrimaryNav() {
     <nav aria-label="Primary">
       <ul className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2">
         {nav.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive =
+            pathname === item.href ||
+            (item.href !== "/" && pathname.startsWith(`${item.href}/`));
           const isDisabled = "disabled" in item && item.disabled;
 
           if (isDisabled) {

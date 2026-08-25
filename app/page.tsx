@@ -1,7 +1,7 @@
 import { FeaturedProjectsSection } from "@/components/home/FeaturedProjectsSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { SkillsSection } from "@/components/home/SkillsSection";
-import { WritingPreviewSection } from "@/components/home/WritingPreviewSection";
+import { BlogPreviewSection } from "@/components/home/BlogPreviewSection";
 import { Container } from "@/components/layout/Container";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
         <HeroSection />
         <SkillsSection />
         <FeaturedProjectsSection />
-        <WritingPreviewSection />
+        <BlogPreviewSection />
       </Container>
     </main>
   );
