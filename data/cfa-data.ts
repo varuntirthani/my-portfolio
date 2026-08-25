@@ -44,22 +44,24 @@ export const cfaData: CFAData = {
             title: "PV, FV, Annuities",
             notes: [
               "Interest Rates & Discount Rates are used interchangeably",
-              "r = Real risk-free rate + Inflation premium + Default risk premium + Liquidity premium + Maturity premium",
-              "FV = PV × (1 + r)^N for lumpsum; EAR = (1 + periodic rate)^m - 1",
-              "Ordinary annuity: first cash flow at t=1. Annuity due: first cash flow at t=0",
-              "Perpetuity PV = A / r (ordinary annuity; payments begin at t=1)",
-              "CALC TIP: Use ICONV on BA II Plus for EAR — enter NOM, C/Y, then CPT EFF"
+              "r = Real Risk-Free Rate + Inflation Premium + Default Risk Premium + Liquidity Premium + Maturity Premium",
+              "Lump-sum Future Value: FV_N = PV₀ × (1 + r)^N",
+              "Effective Annual Rate: EAR = (1 + r_periodic)^m − 1",
+              "Ordinary Annuity: First Cash Flow at t=1. Annuity Due: First Cash Flow at t=0",
+              "Perpetuity PV = A / r",
+              "Best practice is to index all the calculations at one place/point in time so that you can manipulate",
+              "CALC TIP: Use ICONV on BA II Plus for EAR (Effective Annual Rate) — enter NOM, C/Y, then CPT EFF"
             ]
           },
           {
             id: "mod-2",
             title: "Organizing, Visualizing and Describing Data",
             notes: [
-              "Numerical (quantitative) data: continuous or discrete. Categorical (qualitative): nominal or ordinal",
-              "Cross-sectional data: multiple units at one point in time. Time-series: one unit over time. Panel: both",
-              "Trimmed mean: exclude stated % of lowest and highest values. Winsorized mean: replace extremes with boundary values",
-              "Kurtosis: leptokurtic = fat tails (excess kurtosis > 0), platykurtic = thin tails, mesokurtic = normal",
-              "Spurious correlation: chance relationship, calculation artifact, or shared third variable"
+              "Numerical (Quantitative) data: Continuous or Discrete. Categorical (Qualitative): Nominal (Unranked) or Ordinal (Ranked)",
+              "Cross-Sectional Data: Multiple units at one point in time. Time-Series: One unit over time. Panel: Both",
+              "Trimmed Mean: Exclude stated % of lowest and highest values. Winsorized Mean: Replace extremes with boundary values",
+              "Kurtosis: Leptokurtic = Fat tails (excess kurtosis > 0), Platykurtic = Thin tails, Mesokurtic = Normal",
+              "Spurious correlation: Chance relationship, calculation artifact, or correlation with a shared third variable"
             ]
           },
           {
@@ -67,9 +69,9 @@ export const cfaData: CFAData = {
             title: "Probability Concepts",
             notes: [
               "P(A|B) = P(AB) / P(B). Independent events: P(A|B) = P(A)",
-              "Total Probability Rule: P(A) = ΣP(A|Sᵢ)P(Sᵢ)",
+              "Total Probability Rule: P(A) = \\sum_{i=1}^{n} P(A \\mid S_i)P(S_i)",
               "Bayes' Formula: P(A|B) = [P(B|A) / P(B)] × P(A) — reverses the 'given that' information",
-              "Covariance of returns negative if one asset above expected when other is below",
+              "Covariance of returns is negative if one asset is above expected while other is below",
               "Multinomial formula: n! / (n₁! × n₂! × ... × nₖ!) for labelling n objects with k labels"
             ]
           },
@@ -79,22 +81,22 @@ export const cfaData: CFAData = {
             notes: [
               "Binomial: X ~ B(n,p); Mean = np; Variance = np(1-p)",
               "Normal distribution: 68% within ±1σ, 95% within ±2σ, 99% within ±3σ",
-              "Z = (X − μ) / σ. Safety-first ratio: SFRatio = [E(Rₚ) − Rₗ] / σₚ — choose highest",
-              "Lognormal: bounded below by 0, right-skewed. ln Y is normally distributed",
-              "VaR: minimum value of losses expected over a time period at a given probability",
-              "Central Limit Theorem: sum/mean of large number of independent RVs ≈ normally distributed"
+              "Z = (X − μ) / σ. Safety-first ratio: SFRatio = [E(Rₚ) − Rₗ] / σₚ — Choose Highest",
+              "Lognormal: Bounded below by 0, right-skewed. ln Y is normally distributed",
+              "VaR: Minimum value of losses expected over a time period at a given probability",
+              "Central Limit Theorem: Sum/Mean of large number of independent RVs is normally distributed"
             ]
           },
           {
             id: "mod-5",
             title: "Sampling and Estimation",
             notes: [
-              "Sampling error = observed statistic − true population parameter",
-              "Stratified random sampling: divide into strata, sample proportionally from each",
-              "Cluster sampling: whole clusters are sampling units; only sampled clusters included",
-              "Confidence interval: Point estimate ± Reliability factor × Standard error",
-              "Bootstrap: resampling with replacement from observed sample. Jackknife: leave one out at a time",
-              "Biases: data snooping, sample selection bias, look-ahead bias, time-period bias"
+              "Sampling Error = Observed Statistic − True Population Parameter",
+              "Stratified Random Sampling: Divide into strata, sample proportionally from each",
+              "Cluster Sampling: Whole clusters are sampling units; only sampled clusters are included",
+              "Confidence Interval: Point Estimate ± Reliability Factor × Standard Error",
+              "Bootstrap: Resampling with replacement from observed sample. Jackknife: Leave one out at a time (w/o replacement)",
+              "Biases: Data Snooping, Sample Selection Bias, Look-Ahead Bias, Time-Period Bias"
             ]
           },
           {
@@ -102,9 +104,9 @@ export const cfaData: CFAData = {
             title: "Hypothesis Testing",
             notes: [
               "H₀ is null hypothesis (what we want to reject). H₁ is alternative",
-              "Type I error: false positive (reject true null). Type II error: false negative (fail to reject false null)",
-              "p-value: smallest level of significance at which H₀ can be rejected. Reject when p-value < α",
-              "t-distribution: symmetric, mean zero, fatter tails than normal. Approaches normal as df → ∞",
+              "Type I Error: False Positive (reject true null). Type II Error: False Negative (fail to reject false null)",
+              "p-value: Smallest level of significance at which H₀ can be rejected. Reject when p-value < α (Significance Level)",
+              "t-distribution: Symmetric, mean zero, fatter tails than normal. Approaches normal as df → ∞",
               "Chi-square test for variance. F-test for equality of two variances: F = s₁² / s₂²",
               "Spearman rank correlation for non-parametric ranked data"
             ]
@@ -115,9 +117,9 @@ export const cfaData: CFAData = {
             notes: [
               "Dependent variable (Y) explained by independent variable (X)",
               "OLS minimizes sum of squared residuals",
-              "R² = proportion of variation in Y explained by X. F-statistic = MSR / MSE for overall model fit",
-              "CLRM assumptions: linearity, homoskedasticity, independence, normality of residuals",
-              "Log-lin model: ln(Y) = b₀ + b₁X. Lin-log: Y = b₀ + b₁ln(X). Log-log: both logged"
+              "R² = Proportion of variation in Y explained by X. F-statistic = MSR / MSE for overall model fit",
+              "CLRM assumptions: Linearity, Homoskedasticity, Independence, Normality of residuals",
+              "Log-linear model: ln(Y) = b₀ + b₁X. Linear-log: Y = b₀ + b₁ln(X). Log-log: Both logged"
             ]
           }
         ]
