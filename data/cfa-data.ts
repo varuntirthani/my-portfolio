@@ -44,12 +44,13 @@ export const cfaData: CFAData = {
             title: "PV, FV, Annuities",
             notes: [
               "Interest Rates & Discount Rates are used interchangeably",
-              "r = Real Risk-Free Rate + Inflation Premium + Default Risk Premium + Liquidity Premium + Maturity Premium",
+              "Interest rate components: r = \\text{Real Risk-Free Rate} + \\text{Inflation Premium} + \\text{Default Risk Premium} + \\text{Liquidity Premium} + \\text{Maturity Premium}",
               "Lump-sum Future Value: FV_N = PV₀ × (1 + r)^N",
-              "Effective Annual Rate: EAR = (1 + r_periodic)^m − 1",
-              "Ordinary Annuity: First Cash Flow at t=1. Annuity Due: First Cash Flow at t=0",
-              "Perpetuity PV = A / r",
-              "Best practice is to index all the calculations at one place/point in time so that you can manipulate",
+              "Effective Annual Rate: EAR = \\left(1 + r_{\\text{periodic}}\\right)^m − 1",
+              "Ordinary Annuity: The first cash flow occurs at time 1",
+              "Annuity Due: The first cash flow occurs at time 0",
+              "Perpetuity: PV = A / r",
+              "Best practice: Index all calculations at a single point in time before manipulating them",
               "CALC TIP: Use ICONV on BA II Plus for EAR (Effective Annual Rate) — enter NOM, C/Y, then CPT EFF"
             ]
           },
@@ -68,22 +69,22 @@ export const cfaData: CFAData = {
             id: "mod-3",
             title: "Probability Concepts",
             notes: [
-              "P(A|B) = P(AB) / P(B). Independent events: P(A|B) = P(A)",
+              "Conditional probability: P(A|B) = P(A \\cap B) / P(B). Independent events satisfy P(A \\cap B) = P(A)P(B)",
               "Total Probability Rule: P(A) = \\sum_{i=1}^{n} P(A \\mid S_i)P(S_i)",
-              "Bayes' Formula: P(A|B) = [P(B|A) / P(B)] × P(A) — reverses the 'given that' information",
+              "Bayes' Formula: P(A|B) = \\frac{P(B|A)P(A)}{P(B)} — reverses the 'given that' information",
               "Covariance of returns is negative if one asset is above expected while other is below",
-              "Multinomial formula: n! / (n₁! × n₂! × ... × nₖ!) for labelling n objects with k labels"
+              "Multinomial formula: n! / (n₁! × n₂! × \\cdots × nₖ!) for labelling n objects with k labels"
             ]
           },
           {
             id: "mod-4",
             title: "Common Probability Distributions",
             notes: [
-              "Binomial: X ~ B(n,p); Mean = np; Variance = np(1-p)",
+              "Binomial distribution: X \\sim B(n,p); mean: μ = np; variance: σ² = np(1 − p)",
               "Normal distribution: 68% within ±1σ, 95% within ±2σ, 99% within ±3σ",
-              "Z = (X − μ) / σ. Safety-first ratio: SFRatio = [E(Rₚ) − Rₗ] / σₚ — Choose Highest",
+              "Z-score: Z = (X − μ) / σ. Safety-first ratio: SFR = [E(R_p) − R_L] / σ_p — choose the highest ratio",
               "Lognormal: Bounded below by 0, right-skewed. ln Y is normally distributed",
-              "VaR: Minimum value of losses expected over a time period at a given probability",
+              "VaR: Loss threshold such that the probability of a larger loss over the specified period equals 1 − the confidence level",
               "Central Limit Theorem: Sum/Mean of large number of independent RVs is normally distributed"
             ]
           },
@@ -244,7 +245,7 @@ export const cfaData: CFAData = {
               "Three sources of return: coupon, reinvestment of coupons, capital gain/loss on sale",
               "Macaulay duration = weighted average time to receive bond's cash flows",
               "Modified duration = Macaulay duration / (1 + periodic yield). Estimates % price change per yield change",
-              "%ΔPV ≈ −AnnModDur × ΔYield + ½ × AnnConvexity × (ΔYield)²",
+              "Duration-convexity approximation: %ΔPV ≈ −\\text{AnnModDur} × Δy + \\frac{1}{2}\\text{AnnConvexity}(Δy)^2",
               "Effective duration: used for bonds with embedded options (not modified duration)",
               "Duration gap = Macaulay duration − investment horizon. Positive gap = price risk dominates; negative = reinvestment risk dominates",
               "Money duration = AnnModDur × PV. PVBP = change in full price per 1bp yield change"
@@ -256,7 +257,7 @@ export const cfaData: CFAData = {
             notes: [
               "Expected Loss = Default Probability × Loss Severity Given Default",
               "Loss Severity = 1 − Recovery Rate",
-              "Credit rating agencies: Moody's, S&P, Fitch. Investment grade: Baa3+/BBB-+",
+              "Credit rating agencies: Moody's, S&P, Fitch. Investment grade: Baa3 or higher (Moody's) and BBB− or higher (S&P/Fitch)",
               "Secured debt: direct claim on assets. Unsecured: general claim on assets/cash flows",
               "Seniority ranking matters in default: senior secured → junior secured → unsecured → subordinated"
             ]
@@ -330,7 +331,7 @@ export const cfaData: CFAData = {
               "Arbitrage: two conditions — identical assets must trade at same price; known future price must equal discounted spot",
               "Cost of carry: net of costs and benefits of owning underlying for a period",
               "F(T) = [S₀ − PV(I) + PV(C)] × (1 + r)^T where I = income, C = costs",
-              "For equity index: F(T) = S₀ × e^(r−δ)T (continuous compounding)",
+              "Equity-index forward: F(T) = S_0 × e^{(r − δ)T} — continuous compounding",
               "Convenience yield: non-cash benefit of holding physical commodity vs derivative"
             ]
           },
@@ -339,7 +340,7 @@ export const cfaData: CFAData = {
             title: "Module 8–9: Options and Put-Call Parity",
             notes: [
               "Call option ITM when S > X; put option ITM when S < X",
-              "Option value = intrinsic value + time value. Time value always positive, declines to zero at maturity",
+              "Option value = intrinsic value + time value. Time value is non-negative and declines to zero at maturity",
               "Put-call parity: S₀ + P₀ = C₀ + PV(X). Holds for European options with same strike and expiry",
               "Fiduciary call = long call + risk-free bond paying X at maturity. Protective put = long stock + long put",
               "Higher volatility → higher option premiums (for both calls and puts)"
@@ -349,9 +350,9 @@ export const cfaData: CFAData = {
             id: "der-10",
             title: "Module 10: Binomial Option Pricing",
             notes: [
-              "One-period binomial: asset goes up to S⁺ or down to S⁻ with equal probability",
+              "One-period binomial: asset moves up to S⁺ or down to S⁻; valuation uses the risk-neutral probability π, which is not necessarily 50%",
               "Hedge ratio h = (C⁺ − C⁻) / (S⁺ − S⁻). Sell 1 call, buy h shares to create riskless portfolio",
-              "Risk-neutral probability π = [(1+r) − d] / (u − d)",
+              "Risk-neutral probability: π = \\frac{(1 + r) − d}{u − d}",
               "Option price = [π × C⁺ + (1−π) × C⁻] / (1+r)"
             ]
           }
@@ -405,10 +406,10 @@ export const cfaData: CFAData = {
             id: "ci-6",
             title: "Module 6: Cost of Capital",
             notes: [
-              "WACC = wd × rd(1−t) + we × re + wp × rp",
+              "WACC: WACC = w_d × r_d(1 − T) + w_e × r_e + w_p × r_p",
               "Cost of debt = YTM of existing debt or comparable bonds",
               "Cost of equity via CAPM: re = rf + β × ERP",
-              "Adjusted beta = (2/3)(unadjusted beta) + (1/3)(1.0) — regresses toward 1 over time",
+              "Blume-adjusted beta: β_a = (2/3)β_u + (1/3)(1.0) — regresses toward 1 over time",
               "For private companies: unlever beta of comparable public companies, then relever at target capital structure",
               "Flotation costs: better to adjust initial cash flow than add to cost of equity"
             ]
@@ -448,7 +449,7 @@ export const cfaData: CFAData = {
             id: "econ-1",
             title: "Module 1: Demand and Supply",
             notes: [
-              "Own-price elasticity < 1 = inelastic; > 1 = elastic. Elastic demand: price and revenue move opposite",
+              "Own-price elasticity: absolute value below 1 is inelastic; above 1 is elastic. With elastic demand, price and revenue move in opposite directions",
               "Normal goods: positive income elasticity. Inferior goods: negative income elasticity",
               "Cross-price elasticity positive = substitutes. Negative = complements",
               "Giffen goods and Veblen goods: quantity demanded increases with price (exceptions to law of demand)",
@@ -470,10 +471,10 @@ export const cfaData: CFAData = {
             id: "econ-8",
             title: "Module 8: Currency Exchange Rates",
             notes: [
-              "Real exchange rate = Sd/f × (Pf / Pd). Adjusts nominal rate for price level differences",
+              "Real exchange rate: q = S_{d/f} × (P_f / P_d) — adjusts the nominal rate for relative price levels",
               "Covered interest rate parity: no-arbitrage condition linking spot, forward rates and interest rate differentials",
               "Uncovered interest rate parity: expected exchange rate change equals interest rate differential (not arbitrage-enforced)",
-              "Forward points = (Forward rate − Spot rate) × 10,000",
+              "Forward points = (Forward rate − Spot rate) × the market quotation scale — commonly 10,000 for four-decimal currency quotes",
               "Marshall-Lerner condition: depreciation improves trade balance if sum of export/import elasticities > 1",
               "J-curve effect: trade balance worsens before improving after currency depreciation"
             ]
@@ -494,8 +495,8 @@ export const cfaData: CFAData = {
               "Geometric mean return is more accurate for multi-period growth than arithmetic mean",
               "Time-weighted return: eliminates effect of external cash flows. Best for manager evaluation",
               "Money-weighted return: accounts for timing and amount of cash flows. Best for investor perspective",
-              "Portfolio variance: σ²p = w²aσ²a + w²bσ²b + 2wawbCov(a,b)",
-              "Correlation = Cov(a,b) / (σa × σb). Lower correlation → greater diversification benefit",
+              "Portfolio variance: \\sigma_p^2 = w_a^2\\sigma_a^2 + w_b^2\\sigma_b^2 + 2w_aw_b\\mathrm{Cov}(a,b)",
+              "Correlation: \\rho_{a,b} = \\mathrm{Cov}(a,b) / (\\sigma_a × \\sigma_b) — lower correlation provides greater diversification benefit",
               "Minimum variance frontier: efficient portion above global minimum variance portfolio"
             ]
           },
@@ -505,9 +506,9 @@ export const cfaData: CFAData = {
             notes: [
               "CML = Capital Market Line: combines risk-free asset with market portfolio",
               "SML = Security Market Line: applies to any asset using beta (systematic risk)",
-              "CAPM: E(Ri) = Rf + βi × [E(Rm) − Rf]. Beta measures sensitivity to market",
+              "CAPM: E(R_i) = R_f + β_i × [E(R_m) − R_f] — beta measures sensitivity to the market",
               "Systematic risk cannot be diversified away — it is priced. Unsystematic risk can be diversified — not priced",
-              "Sharpe ratio = (Rp − Rf) / σp. Treynor = (Rp − Rf) / β. Jensen's Alpha = actual − CAPM expected",
+              "Sharpe ratio: (R_p − R_f) / σ_p. Treynor ratio: (R_p − R_f) / β_p. Jensen's alpha: actual return − CAPM-implied return",
               "Fama-French 3-factor: adds size (SMB) and value (HML) factors to CAPM"
             ]
           },
@@ -576,7 +577,7 @@ export const cfaData: CFAData = {
             id: "l2-qm-1",
             title: "Module 1: Multiple Regression",
             notes: [
-              "Multiple regression: Y = b₀ + b₁X₁ + ... + bₖXₖ + ε. Each slope = change in Y per unit change in Xⱼ, holding others constant",
+              "Multiple regression: Y = b₀ + b₁X₁ + … + bₖXₖ + ε — each bⱼ measures the change in Y per unit change in Xⱼ, holding other variables constant",
               "Adjusted R² penalizes for adding variables without improving fit. AIC (forecast) vs BIC (goodness of fit) — lower is better",
               "Heteroskedasticity: non-constant variance of residuals. Breusch-Pagan test: regress squared residuals on independent variables",
               "Autocorrelation: correlated residuals across observations. Use Durbin-Watson (single lag) or Breusch-Godfrey (multiple lags)",
@@ -589,13 +590,13 @@ export const cfaData: CFAData = {
             id: "l2-qm-2",
             title: "Module 2: Time Series Analysis",
             notes: [
-              "AR(p) model: xt = b₀ + b₁xt₋₁ + ... + bpxt₋p + εt",
+              "AR(p) model: xₜ = b₀ + b₁xₜ₋₁ + … + bₚxₜ₋ₚ + εₜ",
               "Covariance stationarity: constant mean, finite variance, autocovariance depends only on lag not time",
               "Log-linear model appropriate for financial time series with exponential growth: ln(y) = b₀ + b₁t",
-              "Mean reversion level = b₀ / (1 − b₁). Random walk: no mean reversion (b₁ = 1)",
+              "Mean-reversion level: x̄ = b₀ / (1 − b₁) — a random walk has b₁ = 1 and no mean reversion",
               "First differencing transforms random walk into stationary series",
               "Dickey-Fuller test: null hypothesis = unit root (non-stationary). Want to reject",
-              "ARCH model: variance of residuals depends on prior period variance. σ²t = a₀ + a₁ε²t₋₁",
+              "ARCH(1): σ²ₜ = α₀ + α₁ε²ₜ₋₁ — conditional variance depends on the prior squared shock",
               "Cointegration: two non-stationary series share same long-run trend — valid to regress"
             ]
           },
@@ -665,7 +666,7 @@ export const cfaData: CFAData = {
             notes: [
               "Beneish M-score: 8-factor model for earnings manipulation probability. M > −1.78 = high manipulation risk",
               "Key flags: DSRI (receivables growing faster than revenue), GMI (gross margin deteriorating), AQI (excess capitalization)",
-              "Accruals = Net Operating Assets (End) − Net Operating Assets (Beginning) = NI − CFO − CFI",
+              "Operating accruals: NI − CFO",
               "High accruals relative to assets = lower earnings persistence and quality",
               "Altman Z-score: predicts bankruptcy using 5 accounting/market variables. Higher = lower bankruptcy risk",
               "Revenue manipulation signs: receivables growing faster than revenue, high rate of customer returns, Q4 revenue spikes"
@@ -685,7 +686,7 @@ export const cfaData: CFAData = {
             title: "Module 1: Term Structure Dynamics",
             notes: [
               "Spot rate = YTM on zero-coupon bond. Forward rate = implied rate between two spot rates",
-              "(1+Z_B)^B = (1+Z_A)^A × (1+f_{A,B-A})^(B-A). Forward rates > spot when yield curve is upward sloping",
+              "Forward-rate relation: (1 + Z_A)^A × (1 + f_{A,B-A})^(B-A) = (1 + Z_B)^B — an upward-sloping spot curve generally implies forward rates above spot rates",
               "Par curve: yields at which bonds are priced at par. Bootstrapping derives spot rates from par yields",
               "Swap rate curve used as benchmark; swap spread = fixed rate on swap − government bond yield of same maturity",
               "Z-spread: constant spread over all spot rates to price bond. OAS = Z-spread − option cost",
@@ -697,7 +698,7 @@ export const cfaData: CFAData = {
             id: "l2-fi-2",
             title: "Module 2: Arbitrage-Free Valuation",
             notes: [
-              "Binomial interest rate tree: lognormal random walk where adjacent rates = multiples of e^(2σ)",
+              "Adjacent rates in a binomial interest-rate tree: r_{high} = r_{low} × e^(2σ)",
               "Backward induction: value at each node = 0.5 × (V_up + V_down + Coupon) / (1 + rate at node)",
               "Pathwise valuation: average PV across all 2^(n-1) possible paths",
               "Tree is calibrated to match observed market prices (arbitrage-free)",
@@ -735,7 +736,7 @@ export const cfaData: CFAData = {
             notes: [
               "CDS buyer pays periodic premium (spread) to seller; receives payment if credit event occurs",
               "Credit events: bankruptcy, failure to pay, restructuring",
-              "CDS spread ≈ (1 − Recovery Rate) × Probability of Default",
+              "CDS spread ≈ (1 − R) × PD — a rough approximation that ignores timing and discounting",
               "Upfront premium % = (CDS spread − standard coupon) × Duration",
               "Index CDS: covers multiple issuers; correlation among issuers affects spread",
               "Naked CDS: takes credit risk without holding underlying bond (speculative)",
@@ -755,7 +756,7 @@ export const cfaData: CFAData = {
             id: "l2-eq-2",
             title: "Module 2: Discounted Dividend Valuation",
             notes: [
-              "Gordon Growth Model: V₀ = D₁ / (r − g). g = ROE × b (retention ratio)",
+              "Gordon Growth Model: V₀ = D₁ / (r − g); g = ROE × b — b is the retention ratio",
               "H-Model: V₀ = [D₀(1+gL) / (r−gL)] + [D₀ × H × (gS−gL) / (r−gL)]",
               "PVGO = V₀ − E₁/r. Positive PVGO when ROE > required return on equity",
               "Justified leading P/E = (1−b) / (r−g). Justified trailing P/E = (1−b)(1+g) / (r−g)",
@@ -791,7 +792,7 @@ export const cfaData: CFAData = {
             notes: [
               "RI = Net Income − (re × Beginning Book Value). Captures profit above cost of equity",
               "EVA = NOPAT − (WACC × Invested Capital). Measures true economic value added",
-              "V₀ = B₀ + Σ [RIt / (1+r)^t]. Terminal value: assume RI fades at persistence factor ω",
+              "Residual income valuation: V₀ = B₀ + \\sum_{t=1}^{\\infty} [RI_t / (1 + r)^t] — terminal value may assume RI fades at persistence factor ω",
               "RI recognized earlier than dividends — less dependent on uncertain terminal value",
               "Clean surplus violated when items bypass income statement (FX translation, pension adjustments, OCI items)",
               "Justified P/B = 1 + PV of future RI / Book Value. P/B > 1 when ROE > cost of equity"
@@ -834,8 +835,8 @@ export const cfaData: CFAData = {
             id: "l2-der-2",
             title: "Module 2: Contingent Claims Valuation",
             notes: [
-              "Black-Scholes: C = S₀N(d₁) − Xe^(−rT)N(d₂). Assumes continuous trading, no dividends, constant volatility",
-              "d₁ = [ln(S/X) + (r + 0.5σ²)T] / σ√T. d₂ = d₁ − σ√T",
+              "Black-Scholes: C = S₀N(d₁) − Xe^(−rT)N(d₂) — assumes continuous trading, no dividends, and constant volatility",
+              "Black-Scholes terms: d₁ = [ln(S/X) + (r + 0.5σ²)T] / (σ√T); d₂ = d₁ − σ√T",
               "N(d₁) = delta of call option. N(−d₁) = delta of put option (positive, but position is negative)",
               "Delta: rate of change of option price per unit change in underlying. Ranges 0 to 1 for calls",
               "Gamma: rate of change of delta. Highest ATM and near expiry. Positive for long positions",
@@ -857,7 +858,7 @@ export const cfaData: CFAData = {
             id: "l2-pm-2",
             title: "Module 2: Multifactor Models",
             notes: [
-              "APT: expected return = Rf + Σ(factor sensitivity × factor risk premium). Multiple priced factors",
+              "APT: E(R_i) = R_f + \\sum_{j=1}^{k} [β_j × RP_j] — allows multiple priced factors",
               "Fama-French 3-factor: market (ERP) + size (SMB) + value (HML)",
               "Carhart 4-factor: adds momentum (WML) to Fama-French",
               "Active return = portfolio return − benchmark return = factor return + security selection return",
@@ -869,8 +870,8 @@ export const cfaData: CFAData = {
             id: "l2-pm-3",
             title: "Module 3: Market Risk (VaR)",
             notes: [
-              "VaR = minimum expected loss at a given confidence level over a specified period",
-              "Parametric VaR: assumes normal distribution. VaR = μ − z × σ",
+              "VaR is the loss threshold that should not be exceeded at a stated confidence level over a specified period; it is not expected loss",
+              "Parametric VaR for normally distributed returns: VaR_α = z_α × σ − μ",
               "Historical simulation: rank actual returns; 5th percentile = 95% VaR",
               "CVaR (Expected Shortfall): expected loss given that loss exceeds VaR threshold",
               "IVaR: absolute change in portfolio VaR from changing one position",
@@ -886,7 +887,7 @@ export const cfaData: CFAData = {
               "TC (transfer coefficient): correlation between desired and actual active weights. = 1 for unconstrained",
               "Optimal active risk: σ_A* = (IR*/SR_B) × σ_B",
               "Sharpe of combination: SR² = SR_B² + IR²",
-              "Market timing: IC = 2(% correct) − 1. Must be > 0.5 correct to add value",
+              "Market-timing information coefficient: IC = 2p − 1 — p is the fraction of correct calls and must exceed 0.5 to add value",
               "Active weights sum to zero. Overweighted = positive active weight; underweighted = negative"
             ]
           }
@@ -916,8 +917,8 @@ export const cfaData: CFAData = {
             title: "Module 2: Economic Growth",
             notes: [
               "Cobb-Douglas: Y = T × K^α × L^(1−α). α = capital's share of output",
-              "Solow growth accounting: ΔY/Y = ΔTF P/TFP + α(ΔK/K) + (1−α)(ΔL/L)",
-              "Neoclassical steady state: g* = ΔTF P / (1−α). Capital deepening temporarily raises growth but not steady state",
+              "Solow growth accounting: ΔY/Y = ΔTFP/TFP + α(ΔK/K) + (1 − α)(ΔL/L)",
+              "Neoclassical steady-state per-capita output growth: g_y^* = g_{TFP} / (1 − α) — capital deepening affects transition, not long-run growth",
               "Endogenous growth: returns to capital are constant → increased savings permanently raises growth rate",
               "Absolute convergence: all countries converge to same growth rate. Conditional: convergence only with same fundamentals",
               "Dutch Disease: natural resource abundance causes currency appreciation, crowding out manufacturing"
@@ -1034,7 +1035,7 @@ export const cfaData: CFAData = {
               "Capital market expectations must be cross-sectionally consistent (across assets at a point in time) and temporally consistent (across time horizons)",
               "7-step CME process: determine scope → research history → specify methods → identify data sources → interpret environment → formulate expectations → monitor and provide feedback",
               "Exogenous shocks: policy changes, political events, technology, natural disasters, financial crises",
-              "Taylor Rule: r_target = r_neutral + inflation + 0.5(GDP_actual − GDP_trend) + 0.5(inflation − inflation_target)",
+              "Taylor Rule: i^* = r^* + π + 0.5(y − y^*) + 0.5(π − π^*) — y − y* is the percentage output gap",
               "Fiscal + monetary both expansionary with high capital mobility: ambiguous FX impact. Low mobility: depreciation",
               "Anchoring, status quo, confirmation, overconfidence, prudence and availability biases are key CME pitfalls"
             ]
@@ -1043,10 +1044,11 @@ export const cfaData: CFAData = {
             id: "l3-aa-2",
             title: "Module 2: Forecasting Asset Class Returns",
             notes: [
-              "Grinold-Kroner: E(Re) = D/P + (%ΔE − %ΔS) + %ΔP/E. Long-term: %ΔS and %ΔP/E → 0",
+              "Grinold-Kroner: E(R_e) = D/P + %ΔE − %ΔS + %Δ(P/E) — long-run share issuance and valuation changes often approach zero",
               "Singer-Terhaar: blends fully integrated CAPM and fully segmented CAPM by degree of integration",
-              "RP_integrated = ρ × σ_asset × Sharpe_global. RP_blended = λ × RP_integrated + (1−λ) × RP_segmented",
-              "Cap rate for RE: E(R_RE) = Cap Rate + NOI growth − %ΔCap Rate",
+              "Singer-Terhaar integrated premium: RP_i = ρ_{i,g} × σ_i × SR_g",
+              "Singer-Terhaar blended premium: RP_i = λ × RP_{integrated} + (1 − λ) × RP_{segmented}",
+              "Expected real-estate return: E(R_{RE}) ≈ Cap Rate + NOI Growth − %ΔCap Rate",
               "Emerging market bond risks: concentrated wealth, foreign currency borrowing, volatile capital flows, limited fiscal strength",
               "VCV shrinkage: blend sample VCV with target matrix. Weights depend on confidence in historical data",
               "Smoothed data underestimates risk and overstates diversification — must unsmooth for alternatives (RE, PE)"
@@ -1068,12 +1070,14 @@ export const cfaData: CFAData = {
             id: "l3-aa-4",
             title: "Module 4: Principles of Asset Allocation",
             notes: [
-              "MVO maximizes Um = E(Rm) − 0.005 × λm × Var_m. λ = risk aversion coefficient",
+              "Mean-variance utility with percentage returns: U_m = E(R_m) − 0.005 × λ_m × Var(R_m) — use 0.5 instead of 0.005 when returns are decimals",
               "Drawbacks of MVO: GIGO (input sensitivity), concentrated allocations, ignores skew/kurtosis, single-period, illiquid assets",
               "Reverse optimization: start from market-cap weights → derive implied returns. Used in Black-Litterman",
               "Resampled MVO: Monte Carlo simulations around inputs → average frontier portfolios per risk level",
-              "Risk budgeting: MCTR = β_i × σ_p. ACTR = w_i × MCTR_i. Optimal when excess return / MCTR equal across assets",
-              "Liability-relative surplus return: R_s = (ΔAsset − ΔLiability) / Asset. Maximize surplus Sharpe",
+              "Marginal contribution to total risk: MCTR_i = β_{i,p} × σ_p",
+              "Absolute contribution to total risk: ACTR_i = w_i × MCTR_i",
+              "Optimal risk budgeting equates expected excess return per unit of MCTR across assets",
+              "Liability-relative surplus return: R_s = (ΔA − ΔL) / A — maximize the surplus Sharpe ratio",
               "Two-portfolio approach: hedge portfolio (immunizes liabilities) + return-seeking portfolio (managed independently)",
               "Goals-based: each goal gets its own subportfolio with min prob of success and time horizon"
             ]
@@ -1086,7 +1090,7 @@ export const cfaData: CFAData = {
               "Small funds: use pooled/commingled accounts for required diversification",
               "Insurance: fixed income dominates; book value accounting reduces focus on market volatility",
               "Pension: allocation cap constraints; incentivized to invest domestically; fund contributions minimize",
-              "After-tax allowed deviation = Before-tax deviation × (1 − tax rate). Taxes reduce return volatility",
+              "After-tax allowed deviation: d_{after-tax} = d_{before-tax} × (1 − T) — taxes reduce return volatility",
               "Tax loss harvesting: deliberately realize losses to offset gains. Strategic asset location: highest-taxed assets in tax-advantaged accounts",
               "TAA uses: macroeconomic indicators, fundamental (P/E vs historical), sentiment (margin borrowing, short interest, VIX)",
               "Behavioral biases in asset allocation: loss aversion → goals-based solution. Home bias → use global market portfolio as anchor"
@@ -1120,20 +1124,21 @@ export const cfaData: CFAData = {
             title: "Module 2: Swaps, Forwards and Futures",
             notes: [
               "Payer swap: pay fixed, receive floating. Economically = short fixed bond + long floating bond. Negative duration",
-              "NPS = [(MD_Target − MD_Portfolio) / MD_Swap] × MV_Portfolio",
-              "BPV hedge ratio = (BPV_Portfolio − BPV_Target) / BPV_futures. BPV = MD × 0.0001 × MV",
-              "Equity futures: Num contracts = [(β_T − β_P) / β_F] × (MV_P / MV_F). Cash equitization: β_T → 1, β_P = 0",
+              "Required swap notional: NPS = [(MD_{target} − MD_{portfolio}) / MD_{swap}] × MV_{portfolio}",
+              "BPV hedge ratio: N_f = (BPV_{portfolio} − BPV_{target}) / BPV_f",
+              "Basis-point value: BPV = MD × 0.0001 × MV",
+              "Equity-futures contracts: N_f = [(β_T − β_P) / β_F] × (MV_P / MV_F) — for cash equitization, β_T = 1 and β_P = 0",
               "VIX: implied 30-day annualized volatility for S&P 500. Contango = negative roll yield for long VIX futures",
               "Variance swap: long receives realized variance, pays implied variance. Convex — payoffs increase faster with rising vol",
-              "Settlement = Variance Notional × (Realized Variance − Strike Variance)",
-              "Fed funds futures: % probability rate change = (expected rate − current rate) / step size"
+              "Variance-swap settlement: Variance Notional × (Realized Variance − Strike Variance)",
+              "Fed funds futures: implied probability = (expected rate − current rate) / assumed rate-step size"
             ]
           },
           {
             id: "l3-der-3",
             title: "Module 3: Currency Management",
             notes: [
-              "RDC = (1+RFC)(1+RFX) − 1 ≈ RFC + RFX for small values",
+              "Domestic-currency return: R_{DC} = (1 + R_{FC})(1 + R_{FX}) − 1 ≈ R_{FC} + R_{FX} for small returns",
               "Positive correlation between RFC and RFX increases portfolio volatility → stronger case for hedging",
               "Passive hedging: matches currency exposure to benchmark. Discretionary: modest deviations allowed. Active: max flexibility",
               "Roll yield in currency hedging: negative when domestic currency at forward premium (contango); positive when at discount",

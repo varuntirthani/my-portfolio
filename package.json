@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:cfa-math": "node --experimental-strip-types --test lib/cfa-math.test.mjs"
   },
   "dependencies": {
     "katex": "^0.18.4",

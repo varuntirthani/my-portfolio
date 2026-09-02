@@ -20,14 +20,18 @@ function MathBlock({
   const html = useMemo(() => {
     try {
       return katex.renderToString(plainToLatex(latex), {
-        throwOnError: false,
+        throwOnError: true,
         displayMode: false,
         trust: false,
       });
     } catch {
-      return latex;
+      return null;
     }
   }, [latex]);
+
+  if (!html) {
+    return <span className={className}>{latex}</span>;
+  }
 
   return (
     <span
