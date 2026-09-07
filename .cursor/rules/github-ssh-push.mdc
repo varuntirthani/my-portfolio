@@ -1,0 +1,23 @@
+---
+description: Handle GitHub SSH authentication and pushes for this project
+alwaysApply: false
+---
+
+# GitHub SSH Pushes
+
+When a Git/GitHub operation fails with `Permission denied (publickey)`:
+
+- The repository's SSH remote and `~/.ssh/config` may already be correct.
+- This project uses `~/.ssh/id_ed25519`, with macOS Keychain integration configured for `github.com`.
+- A restricted process can see an empty SSH agent even though the key is valid and registered with GitHub.
+- Do not immediately tell the user to regenerate or re-register the SSH key.
+
+First diagnose with unrestricted access:
+
+```bash
+ssh -vT git@github.com
+```
+
+If GitHub accepts the existing key and authentication succeeds, retry the original Git operation with unrestricted permissions so macOS Keychain can load the identity.
+
+Only propose changing keys, SSH configuration, or Git remotes when the unrestricted diagnostic proves they are actually incorrect. Never modify those configurations without the user's explicit request.
