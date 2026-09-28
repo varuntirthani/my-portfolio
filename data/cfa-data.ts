@@ -1,30 +1,15 @@
-export type LevelStatus = "passed" | "in_progress";
+import "server-only";
+import type { CFAData } from "@/data/cfa-types";
 
-export type Difficulty = "tough" | "medium" | "easy";
-
-export type CFAModule = {
-  id: string;
-  title: string;
-  notes: string[];
-};
-
-export type CFATopic = {
-  id: string;
-  name: string;
-  category: string;
-  difficulty: Difficulty;
-  summary: string;
-  modules: CFAModule[];
-};
-
-export type CFALevel = {
-  label: string;
-  status: LevelStatus;
-  passDate: string | null;
-  topics: CFATopic[];
-};
-
-export type CFAData = Record<"L1" | "L2" | "L3", CFALevel>;
+export type {
+  CFAData,
+  CFALevel,
+  CFALevelKey,
+  CFAModule,
+  CFATopic,
+  Difficulty,
+  LevelStatus,
+} from "@/data/cfa-types";
 
 export const cfaData: CFAData = {
   L1: {
@@ -69,18 +54,19 @@ export const cfaData: CFAData = {
             id: "mod-3",
             title: "Probability Concepts",
             notes: [
-              "Conditional probability: P(A|B) = P(A \\cap B) / P(B). Independent events satisfy P(A \\cap B) = P(A)P(B)",
+              "Conditional probability: P(A|B) = P(A \\cap B) / P(B)",
+              "Independent events: P(A \\cap B) = P(A)P(B)",
               "Total Probability Rule: P(A) = \\sum_{i=1}^{n} P(A \\mid S_i)P(S_i)",
               "Bayes' Formula: P(A|B) = \\frac{P(B|A)P(A)}{P(B)} — reverses the 'given that' information",
               "Covariance of returns is negative if one asset is above expected while other is below",
-              "Multinomial formula: n! / (n₁! × n₂! × \\cdots × nₖ!) for labelling n objects with k labels"
+              "Multinomial coefficient: \\frac{n!}{n_1! \\times n_2! \\times \\cdots \\times n_k!} — for labelling n objects across k groups"
             ]
           },
           {
             id: "mod-4",
             title: "Common Probability Distributions",
             notes: [
-              "Binomial distribution: X \\sim B(n,p); mean: μ = np; variance: σ² = np(1 − p)",
+              "Binomial distribution: $X \\sim B(n, p)$, with mean $μ = np$ and variance $σ^2 = np(1 − p)$",
               "Normal distribution: 68% within ±1σ, 95% within ±2σ, 99% within ±3σ",
               "Z-score: Z = (X − μ) / σ. Safety-first ratio: SFR = [E(R_p) − R_L] / σ_p — choose the highest ratio",
               "Lognormal: Bounded below by 0, right-skewed. ln Y is normally distributed",
@@ -234,7 +220,7 @@ export const cfaData: CFAData = {
               "Maturity effect: longer maturity = greater % price change for same rate change",
               "Pull to par: bond price moves toward par as maturity approaches",
               "Spot rates = YTM on zero-coupon bonds. Par curve = yield where bond priced at par",
-              "Forward rate: IFR(A,B-A) derived from (1+Z_B)^B = (1+Z_A)^A × (1+f_{A,B-A})^(B-A)",
+              "Implied forward rate $f_{A,B-A}$ solves $(1 + Z_B)^B = (1 + Z_A)^A × (1 + f_{A,B-A})^{B-A}$",
               "OAS = Z-spread − option value. Higher OAS = potentially underpriced bond"
             ]
           },
@@ -406,7 +392,7 @@ export const cfaData: CFAData = {
             id: "ci-6",
             title: "Module 6: Cost of Capital",
             notes: [
-              "WACC: WACC = w_d × r_d(1 − T) + w_e × r_e + w_p × r_p",
+              "Weighted average cost of capital: $\\text{WACC} = w_d × r_d(1 − T) + w_e × r_e + w_p × r_p$",
               "Cost of debt = YTM of existing debt or comparable bonds",
               "Cost of equity via CAPM: re = rf + β × ERP",
               "Blume-adjusted beta: β_a = (2/3)β_u + (1/3)(1.0) — regresses toward 1 over time",
@@ -495,8 +481,8 @@ export const cfaData: CFAData = {
               "Geometric mean return is more accurate for multi-period growth than arithmetic mean",
               "Time-weighted return: eliminates effect of external cash flows. Best for manager evaluation",
               "Money-weighted return: accounts for timing and amount of cash flows. Best for investor perspective",
-              "Portfolio variance: \\sigma_p^2 = w_a^2\\sigma_a^2 + w_b^2\\sigma_b^2 + 2w_aw_b\\mathrm{Cov}(a,b)",
-              "Correlation: \\rho_{a,b} = \\mathrm{Cov}(a,b) / (\\sigma_a × \\sigma_b) — lower correlation provides greater diversification benefit",
+              "Portfolio variance: $σ_p^2 = w_a^2 σ_a^2 + w_b^2 σ_b^2 + 2 w_a w_b \\, \\mathrm{Cov}(a, b)$",
+              "Correlation: $\\rho_{a,b} = \\frac{\\mathrm{Cov}(a, b)}{σ_a σ_b}$ — lower correlation provides greater diversification benefit",
               "Minimum variance frontier: efficient portion above global minimum variance portfolio"
             ]
           },
@@ -698,9 +684,9 @@ export const cfaData: CFAData = {
             id: "l2-fi-2",
             title: "Module 2: Arbitrage-Free Valuation",
             notes: [
-              "Adjacent rates in a binomial interest-rate tree: r_{high} = r_{low} × e^(2σ)",
-              "Backward induction: value at each node = 0.5 × (V_up + V_down + Coupon) / (1 + rate at node)",
-              "Pathwise valuation: average PV across all 2^(n-1) possible paths",
+              "Adjacent rates in a binomial interest-rate tree: $r_{\\text{high}} = r_{\\text{low}} × e^{2σ}$",
+              "Backward induction: $V_{\\text{node}} = \\frac{0.5(V_{\\text{up}} + V_{\\text{down}}) + C}{1 + r_{\\text{node}}}$ — C is the coupon paid at the next node",
+              "Pathwise valuation: average the present value across all $2^{n-1}$ possible paths",
               "Tree is calibrated to match observed market prices (arbitrage-free)",
               "Vasicek model: allows negative rates; mean-reverting. CIR model: volatility scales with rate level",
               "Ho-Lee: arbitrage-free with time-varying drift. KWF: lognormal, arbitrage-free, no mean reversion"
@@ -710,7 +696,8 @@ export const cfaData: CFAData = {
             id: "l2-fi-3",
             title: "Module 3: Bonds with Embedded Options",
             notes: [
-              "V_callable = V_straight − V_call (issuer holds call). V_puttable = V_straight + V_put (holder has put)",
+              "Callable bond: $V_{\\text{callable}} = V_{\\text{straight}} − V_{\\text{call}}$ — the issuer holds the call",
+              "Putable bond: $V_{\\text{putable}} = V_{\\text{straight}} + V_{\\text{put}}$ — the investor holds the put",
               "Effective duration = (V₋ − V₊) / (2 × V₀ × Δy). Used because callable bonds lack well-defined YTM",
               "Negative convexity for callable bonds when rates fall (call caps price appreciation)",
               "OAS increases with IR volatility for putable bonds (investor is long volatility). Decreases for callable bonds",
@@ -727,7 +714,7 @@ export const cfaData: CFAData = {
               "Hazard rate: conditional probability of default given survival to that point",
               "Structural model: default when asset value falls below debt value. Equity = call on assets",
               "Reduced-form model: default is exogenous; modelled statistically using hazard rate",
-              "Risk-neutral PD derived from credit spread: (1−p) × (1+YTM_risky) = (1+YTM_riskfree)"
+              "Risk-neutral default probability from the credit spread, assuming zero recovery: $(1 − p)(1 + y_{\\text{risky}}) = 1 + y_{\\text{risk-free}}$"
             ]
           },
           {
@@ -758,7 +745,7 @@ export const cfaData: CFAData = {
             notes: [
               "Gordon Growth Model: V₀ = D₁ / (r − g); g = ROE × b — b is the retention ratio",
               "H-Model: V₀ = [D₀(1+gL) / (r−gL)] + [D₀ × H × (gS−gL) / (r−gL)]",
-              "PVGO = V₀ − E₁/r. Positive PVGO when ROE > required return on equity",
+              "Present value of growth opportunities: $\\text{PVGO} = V_0 − E_1 / r$ — positive when ROE exceeds the required return on equity",
               "Justified leading P/E = (1−b) / (r−g). Justified trailing P/E = (1−b)(1+g) / (r−g)",
               "Sustainable growth rate g = ROE × retention ratio. Use DuPont to decompose ROE drivers"
             ]
@@ -823,9 +810,9 @@ export const cfaData: CFAData = {
             id: "l2-der-1",
             title: "Module 1: Pricing Forward Commitments",
             notes: [
-              "Forward price F(T) = S₀(1+r)^T for no income/storage. Subtract PV of income; add PV of costs",
+              "Forward price with no income or storage costs: $F(T) = S_0(1 + r)^T$ — subtract the PV of income and add the PV of costs",
               "Equity with dividends: F(T) = (S₀ − PV(D)) × (1+r)^T",
-              "Equity index (continuous): F(T) = S₀ × e^(r−δ)T where δ = continuous dividend yield",
+              "Equity-index forward: $F(T) = S_0 e^{(r − δ)T}$, where $δ$ is the continuous dividend yield",
               "FRA pricing: lock-in rate that equates lending through full period to rolling two shorter periods",
               "Bond futures: quoted (clean) price × CF + accrued interest at delivery = full price received by short",
               "CTD bond: short selects bond with lowest basis = (Spot − Futures × CF) to deliver"
@@ -1047,8 +1034,8 @@ export const cfaData: CFAData = {
               "Grinold-Kroner: E(R_e) = D/P + %ΔE − %ΔS + %Δ(P/E) — long-run share issuance and valuation changes often approach zero",
               "Singer-Terhaar: blends fully integrated CAPM and fully segmented CAPM by degree of integration",
               "Singer-Terhaar integrated premium: RP_i = ρ_{i,g} × σ_i × SR_g",
-              "Singer-Terhaar blended premium: RP_i = λ × RP_{integrated} + (1 − λ) × RP_{segmented}",
-              "Expected real-estate return: E(R_{RE}) ≈ Cap Rate + NOI Growth − %ΔCap Rate",
+              "Singer-Terhaar blended premium: $RP_i = \\lambda × RP_{\\text{integrated}} + (1 − \\lambda) × RP_{\\text{segmented}}$",
+              "Expected real-estate return: $E(R_{\\text{RE}}) ≈ \\text{Cap rate} + \\text{NOI growth} − %\\Delta \\text{Cap rate}$",
               "Emerging market bond risks: concentrated wealth, foreign currency borrowing, volatile capital flows, limited fiscal strength",
               "VCV shrinkage: blend sample VCV with target matrix. Weights depend on confidence in historical data",
               "Smoothed data underestimates risk and overstates diversification — must unsmooth for alternatives (RE, PE)"
@@ -1074,8 +1061,8 @@ export const cfaData: CFAData = {
               "Drawbacks of MVO: GIGO (input sensitivity), concentrated allocations, ignores skew/kurtosis, single-period, illiquid assets",
               "Reverse optimization: start from market-cap weights → derive implied returns. Used in Black-Litterman",
               "Resampled MVO: Monte Carlo simulations around inputs → average frontier portfolios per risk level",
-              "Marginal contribution to total risk: MCTR_i = β_{i,p} × σ_p",
-              "Absolute contribution to total risk: ACTR_i = w_i × MCTR_i",
+              "Marginal contribution to total risk: $\\text{MCTR}_i = β_{i,p} × σ_p$",
+              "Absolute contribution to total risk: $\\text{ACTR}_i = w_i × \\text{MCTR}_i$",
               "Optimal risk budgeting equates expected excess return per unit of MCTR across assets",
               "Liability-relative surplus return: R_s = (ΔA − ΔL) / A — maximize the surplus Sharpe ratio",
               "Two-portfolio approach: hedge portfolio (immunizes liabilities) + return-seeking portfolio (managed independently)",
@@ -1090,7 +1077,7 @@ export const cfaData: CFAData = {
               "Small funds: use pooled/commingled accounts for required diversification",
               "Insurance: fixed income dominates; book value accounting reduces focus on market volatility",
               "Pension: allocation cap constraints; incentivized to invest domestically; fund contributions minimize",
-              "After-tax allowed deviation: d_{after-tax} = d_{before-tax} × (1 − T) — taxes reduce return volatility",
+              "After-tax allowed deviation: $d_{\\text{after-tax}} = d_{\\text{before-tax}} × (1 − T)$ — taxes reduce return volatility",
               "Tax loss harvesting: deliberately realize losses to offset gains. Strategic asset location: highest-taxed assets in tax-advantaged accounts",
               "TAA uses: macroeconomic indicators, fundamental (P/E vs historical), sentiment (margin borrowing, short interest, VIX)",
               "Behavioral biases in asset allocation: loss aversion → goals-based solution. Home bias → use global market portfolio as anchor"
@@ -1124,10 +1111,10 @@ export const cfaData: CFAData = {
             title: "Module 2: Swaps, Forwards and Futures",
             notes: [
               "Payer swap: pay fixed, receive floating. Economically = short fixed bond + long floating bond. Negative duration",
-              "Required swap notional: NPS = [(MD_{target} − MD_{portfolio}) / MD_{swap}] × MV_{portfolio}",
-              "BPV hedge ratio: N_f = (BPV_{portfolio} − BPV_{target}) / BPV_f",
+              "Required swap notional: $\\text{NPS} = \\frac{\\text{MD}_{\\text{target}} − \\text{MD}_{\\text{portfolio}}}{\\text{MD}_{\\text{swap}}} × \\text{MV}_{\\text{portfolio}}$",
+              "BPV hedge ratio: $N_f = \\frac{\\text{BPV}_{\\text{portfolio}} − \\text{BPV}_{\\text{target}}}{\\text{BPV}_f}$",
               "Basis-point value: BPV = MD × 0.0001 × MV",
-              "Equity-futures contracts: N_f = [(β_T − β_P) / β_F] × (MV_P / MV_F) — for cash equitization, β_T = 1 and β_P = 0",
+              "Equity-futures contracts: $N_f = \\frac{β_T − β_P}{β_F} × \\frac{\\text{MV}_P}{\\text{MV}_F}$ — for cash equitization, $β_T = 1$ and $β_P = 0$",
               "VIX: implied 30-day annualized volatility for S&P 500. Contango = negative roll yield for long VIX futures",
               "Variance swap: long receives realized variance, pays implied variance. Convex — payoffs increase faster with rising vol",
               "Variance-swap settlement: Variance Notional × (Realized Variance − Strike Variance)",
@@ -1138,7 +1125,7 @@ export const cfaData: CFAData = {
             id: "l3-der-3",
             title: "Module 3: Currency Management",
             notes: [
-              "Domestic-currency return: R_{DC} = (1 + R_{FC})(1 + R_{FX}) − 1 ≈ R_{FC} + R_{FX} for small returns",
+              "Domestic-currency return: $R_{DC} = (1 + R_{FC})(1 + R_{FX}) − 1 ≈ R_{FC} + R_{FX}$ for small returns",
               "Positive correlation between RFC and RFX increases portfolio volatility → stronger case for hedging",
               "Passive hedging: matches currency exposure to benchmark. Discretionary: modest deviations allowed. Active: max flexibility",
               "Roll yield in currency hedging: negative when domestic currency at forward premium (contango); positive when at discount",

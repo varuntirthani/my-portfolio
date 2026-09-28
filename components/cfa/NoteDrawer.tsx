@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { CFATopic } from "@/data/cfa-data";
+import type { CFATopic } from "@/data/cfa-types";
 import { CFANoteText } from "@/components/cfa/CFANoteText";
 
 type NoteDrawerProps = {

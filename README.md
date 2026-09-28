@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## CFA access control
+
+The CFA Knowledge Hub uses Supabase magic-link authentication and manual,
+per-level approval.
+
+1. Create a Supabase project.
+2. Run `supabase/migrations/001_cfa_access.sql` in the Supabase SQL editor.
+3. Copy `.env.example` to `.env.local` and add the project URL and publishable
+   key.
+4. In Supabase Auth URL Configuration, add:
+   - `http://localhost:3000/auth/callback`
+   - `https://varuntirthani.com/auth/callback`
+5. Add the same environment variables to the Vercel project before deploying.
+
+The administrator account is `vgttir@gmail.com`. Approved visitors receive
+only the CFA level selected in their request.

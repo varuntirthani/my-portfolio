@@ -1,24 +1,23 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import type { CFALevelKey } from "@/lib/cfa-utils";
+import { useMemo, useState } from "react";
 import {
   buildFlashcards,
   shuffleFlashcards,
   type Flashcard,
 } from "@/lib/cfa-utils";
-import { cfaData } from "@/data/cfa-data";
+import type { CFALevel } from "@/data/cfa-types";
 import { CFANoteText } from "@/components/cfa/CFANoteText";
 
 type FlashcardModeProps = {
-  activeLevel: CFALevelKey;
+  level: CFALevel;
   searchQuery: string;
   activeCategory: string | null;
   onExit: () => void;
 };
 
 export function FlashcardMode({
-  activeLevel,
+  level,
   searchQuery,
   activeCategory,
   onExit,
@@ -26,22 +25,15 @@ export function FlashcardMode({
   const initialDeck = useMemo(
     () =>
       shuffleFlashcards(
-        buildFlashcards(cfaData[activeLevel], searchQuery, activeCategory),
+        buildFlashcards(level, searchQuery, activeCategory),
       ),
-    [activeLevel, searchQuery, activeCategory],
+    [level, searchQuery, activeCategory],
   );
 
   const [deck, setDeck] = useState<Flashcard[]>(initialDeck);
   const [reviewQueue, setReviewQueue] = useState<Flashcard[]>([]);
   const [isFlipped, setIsFlipped] = useState(false);
   const [seenCount, setSeenCount] = useState(0);
-
-  useEffect(() => {
-    setDeck(initialDeck);
-    setReviewQueue([]);
-    setIsFlipped(false);
-    setSeenCount(0);
-  }, [initialDeck]);
 
   const currentCard = deck[0];
   const totalCards = initialDeck.length;
@@ -104,7 +96,7 @@ export function FlashcardMode({
             Session complete
           </p>
           <p className="mt-2 text-sm text-[#9ca3af]">
-            You reviewed {seenCount} cards from {cfaData[activeLevel].label}.
+            You reviewed {seenCount} cards from {level.label}.
           </p>
           <button
             type="button"
@@ -127,7 +119,7 @@ export function FlashcardMode({
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
           <div>
             <p className="font-[family-name:var(--font-cfa-mono)] text-xs tracking-wide text-[#6b7280] uppercase">
-              Flashcard Mode · {cfaData[activeLevel].label}
+              Flashcard Mode · {level.label}
             </p>
             <p className="mt-1 text-sm text-[#9ca3af]">
               {seenCount} seen · {remaining} remaining

@@ -1,9 +1,10 @@
-import { cfaData } from "@/data/cfa-data";
-import type { CFALevelKey } from "@/lib/cfa-utils";
+import type { CFALevel, CFALevelKey } from "@/data/cfa-types";
 
-const levels: CFALevelKey[] = ["L1", "L2", "L3"];
+type JourneyBarProps = {
+  levels: Array<{ key: CFALevelKey; level: CFALevel }>;
+};
 
-export function JourneyBar() {
+export function JourneyBar({ levels }: JourneyBarProps) {
   return (
     <div className="border-b border-[#1e1e2e] bg-[#0a0a0f] px-6 py-8 sm:px-8">
       <div className="mx-auto max-w-5xl">
@@ -14,13 +15,11 @@ export function JourneyBar() {
           Knowledge Hub
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-[#9ca3af]">
-          Searchable notes from Levels I–III. L1 and L2 passed — currently
-          preparing for Level III.
+          Searchable notes for your approved CFA curriculum.
         </p>
 
         <div className="mt-8 flex items-stretch gap-0">
-          {levels.map((key, index) => {
-            const level = cfaData[key];
+          {levels.map(({ key, level }, index) => {
             const isLast = index === levels.length - 1;
             const isInProgress = level.status === "in_progress";
             const isPassed = level.status === "passed";

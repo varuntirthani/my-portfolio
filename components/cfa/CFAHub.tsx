@@ -1,25 +1,36 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { cfaData } from "@/data/cfa-data";
+import type {
+  CFADataSubset,
+  CFALevelKey,
+} from "@/data/cfa-types";
 import {
   filterTopics,
   getLevelCategories,
-  type CFALevelKey,
 } from "@/lib/cfa-utils";
 import { FlashcardMode } from "@/components/cfa/FlashcardMode";
 import { JourneyBar } from "@/components/cfa/JourneyBar";
 import { TopicGrid } from "@/components/cfa/TopicGrid";
 
-const levels: CFALevelKey[] = ["L1", "L2", "L3"];
+type CFAHubProps = {
+  allowedLevels: CFALevelKey[];
+  data: CFADataSubset;
+};
 
-export function CFAHub() {
-  const [activeLevel, setActiveLevel] = useState<CFALevelKey>("L3");
+export function CFAHub({ allowedLevels, data }: CFAHubProps) {
+  const [activeLevel, setActiveLevel] = useState<CFALevelKey>(
+    allowedLevels[0],
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [isFlashcardMode, setIsFlashcardMode] = useState(false);
 
-  const activeLevelData = cfaData[activeLevel];
+  const activeLevelData = data[activeLevel]!;
+  const journeyLevels = allowedLevels.map((key) => ({
+    key,
+    level: data[key]!,
+  }));
   const categories = useMemo(
     () => getLevelCategories(activeLevelData),
     [activeLevelData],
@@ -37,13 +48,13 @@ export function CFAHub() {
 
   return (
     <div className="relative min-h-[calc(100vh-8rem)] bg-[#0a0a0f] bg-[radial-gradient(#1e1e2e_1px,transparent_1px)] [background-size:20px_20px]">
-      <JourneyBar />
+      <JourneyBar levels={journeyLevels} />
 
       <div className="mx-auto max-w-5xl px-6 py-8 sm:px-8">
         <div className="flex flex-wrap gap-2 border-b border-[#1e1e2e] pb-1">
-          {levels.map((level) => {
+          {allowedLevels.map((level) => {
             const isActive = activeLevel === level;
-            const levelData = cfaData[level];
+            const levelData = data[level]!;
 
             return (
               <button
@@ -129,7 +140,7 @@ export function CFAHub() {
 
       {isFlashcardMode && (
         <FlashcardMode
-          activeLevel={activeLevel}
+          level={activeLevelData}
           searchQuery={searchQuery}
           activeCategory={activeCategory}
           onExit={() => setIsFlashcardMode(false)}

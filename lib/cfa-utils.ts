@@ -1,4 +1,4 @@
-import type { CFALevel, CFATopic, CFAData } from "@/data/cfa-data";
+import type { CFALevel, CFATopic, CFAData } from "@/data/cfa-types";
 
 export type CFALevelKey = keyof CFAData;
 

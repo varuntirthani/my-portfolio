@@ -132,7 +132,32 @@ function pushSegment(parts: NotePart[], segment: string) {
   parts.push({ type: "text", content: trimmed });
 }
 
+// Notes containing `$...$` opt out of heuristic detection: only delimited spans render as math.
+function parseDelimitedNote(text: string): NotePart[] {
+  const parts: NotePart[] = [];
+
+  text.split("$").forEach((segment, index) => {
+    if (!segment) return;
+
+    if (index % 2 === 1) {
+      parts.push({ type: "math", content: segment.trim() });
+      return;
+    }
+
+    const label = index === 0 ? segment.match(/^([^:]+:\s+)$/) : null;
+    parts.push(
+      label
+        ? { type: "label", content: label[1] }
+        : { type: "text", content: segment },
+    );
+  });
+
+  return parts;
+}
+
 export function parseNote(text: string): NotePart[] {
+  if (text.includes("$")) return parseDelimitedNote(text);
+
   const parts: NotePart[] = [];
 
   let main = text;
