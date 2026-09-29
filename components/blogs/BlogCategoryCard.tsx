@@ -11,7 +11,7 @@ export function BlogCategoryCard({ category }: BlogCategoryCardProps) {
   const isEmpty = postCount === 0 && category.comingSoon;
 
   return (
-    <article className="flex flex-col rounded-xl border border-neutral-200 bg-neutral-50/50 p-5 transition-colors hover:border-neutral-300 hover:bg-white">
+    <article className="flex flex-col rounded-xl border border-neutral-200 bg-neutral-50/50 p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-100">
       <div className="flex items-start justify-between gap-3">
         <h2 className="text-lg font-semibold tracking-tight text-foreground">
           <Link

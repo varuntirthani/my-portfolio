@@ -45,7 +45,7 @@ export default function BlogsPage() {
             <h2 className="mb-6 text-sm font-medium tracking-wide text-neutral-500 uppercase">
               Recent posts
             </h2>
-            <div className="rounded-xl border border-neutral-200 bg-white px-6">
+            <div className="rounded-xl border border-neutral-200 bg-neutral-50 px-6">
               {recentPosts.map((post) => (
                 <article
                   key={`${post.category}-${post.slug}`}

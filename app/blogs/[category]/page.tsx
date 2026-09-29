@@ -65,7 +65,7 @@ export default async function BlogCategoryPage({ params }: CategoryPageProps) {
         </header>
 
         {posts.length > 0 ? (
-          <div className="rounded-xl border border-neutral-200 bg-white px-6">
+          <div className="rounded-xl border border-neutral-200 bg-neutral-50 px-6">
             {posts.map((post) => (
               <BlogPostCard key={post.slug} post={post} />
             ))}

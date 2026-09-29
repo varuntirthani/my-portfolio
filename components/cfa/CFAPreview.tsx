@@ -9,9 +9,13 @@ const statusLabels = {
 
 export function CFAPreview({ preview }: { preview: CFAPreviewData }) {
   const stats = [
+    { label: "Levels", value: preview.totals.levels },
     { label: "Topics", value: preview.totals.topics },
-    { label: "Notes", value: preview.totals.notes },
-    { label: "Formulas", value: preview.totals.formulas },
+    { label: "Modules", value: preview.totals.modules },
+    {
+      label: "Levels passed",
+      value: `${preview.totals.passed} of ${preview.totals.levels}`,
+    },
   ];
 
   return (
@@ -32,7 +36,7 @@ export function CFAPreview({ preview }: { preview: CFAPreviewData }) {
           review.
         </p>
 
-        <dl className="mt-6 grid max-w-md grid-cols-3 gap-3">
+        <dl className="mt-6 grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-4">
           {stats.map((stat) => (
             <div
               key={stat.label}
@@ -90,7 +94,7 @@ export function CFAPreview({ preview }: { preview: CFAPreviewData }) {
                 </span>
               </div>
               <p className="mt-1 text-xs text-[#6b7280]">
-                {level.topics.length} topics · {level.noteCount} notes
+                {level.topics.length} topics · {level.moduleCount} modules
               </p>
               <ul className="mt-4 space-y-2">
                 {level.topics.map((topic) => (
@@ -103,8 +107,11 @@ export function CFAPreview({ preview }: { preview: CFAPreviewData }) {
                       title={difficultyStyles[topic.difficulty].label}
                     />
                     <span className="flex-1 truncate">{topic.name}</span>
-                    <span className="font-[family-name:var(--font-cfa-mono)] text-[#4b5563]">
-                      {topic.noteCount}
+                    <span
+                      className="font-[family-name:var(--font-cfa-mono)] text-[#4b5563]"
+                      title={`${topic.moduleCount} modules`}
+                    >
+                      {topic.moduleCount}
                     </span>
                   </li>
                 ))}

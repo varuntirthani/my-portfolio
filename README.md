@@ -44,10 +44,15 @@ per-level approval.
 2. Run `supabase/migrations/001_cfa_access.sql` in the Supabase SQL editor.
 3. Copy `.env.example` to `.env.local` and add the project URL and publishable
    key.
-4. In Supabase Auth URL Configuration, add:
-   - `http://localhost:3000/auth/callback`
-   - `https://varuntirthani.com/auth/callback`
-5. Add the same environment variables to the Vercel project before deploying.
+4. In Supabase Auth URL Configuration, set the Site URL to
+   `https://my-portfolio-kappa-nine-57.vercel.app` and add the redirect URL
+   `https://my-portfolio-kappa-nine-57.vercel.app/**`.
+5. Add the same environment variables to the Vercel project, with
+   `NEXT_PUBLIC_SITE_URL=https://my-portfolio-kappa-nine-57.vercel.app`.
+
+Sign-in links only redirect to the deployed site. For local development, set
+`CFA_LOCAL_ADMIN=true` in `.env.local` to open the hub as the administrator
+without signing in.
 
 The administrator account is `vgttir@gmail.com`. Approved visitors receive
 only the CFA level selected in their request.

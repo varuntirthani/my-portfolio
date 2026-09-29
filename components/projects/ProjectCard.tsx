@@ -8,7 +8,7 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition-colors hover:border-neutral-300">
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50 transition-colors hover:border-neutral-300">
       <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
         <ContentImage
           src={project.image.src}

@@ -20,7 +20,7 @@ export function BlogPreviewSection() {
           <Link
             key={category.slug}
             href={`/blogs/${category.slug}`}
-            className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-5 transition-colors hover:border-neutral-300 hover:bg-white"
+            className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-100"
           >
             <div className="flex items-start justify-between gap-3">
               <h3 className="font-medium text-foreground">{category.title}</h3>

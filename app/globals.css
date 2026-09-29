@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #171717;
-  --accent: #1d4ed8;
-  --accent-hover: #1e40af;
-  --muted: #737373;
-  --border: #e5e5e5;
+  color-scheme: dark;
+  --background: #0a0a0f;
+  --foreground: #f0f0f5;
+  --accent: #3b82f6;
+  --accent-hover: #93c5fd;
+  --muted: #9ca3af;
+  --border: #1e1e2e;
+  --grid-dot: #1e1e2e;
 }
 
 @theme inline {
@@ -19,12 +21,30 @@
   --font-sans: var(--font-inter);
 }
 
+/* Inverted neutral scale: components written for the light theme (neutral-50 surfaces,
+   neutral-700 body text) render as dark surfaces and light text without per-file edits. */
+@theme {
+  --color-neutral-50: #13131a;
+  --color-neutral-100: #1a1a24;
+  --color-neutral-200: #1e1e2e;
+  --color-neutral-300: #2e2e42;
+  --color-neutral-400: #4b5563;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #9ca3af;
+  --color-neutral-700: #c9ced8;
+  --color-neutral-800: #e5e7eb;
+  --color-neutral-900: #f0f0f5;
+  --color-neutral-950: #fafafa;
+}
+
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+  background-size: 20px 20px;
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
 ::selection {
-  background-color: color-mix(in srgb, var(--accent) 18%, transparent);
+  background-color: color-mix(in srgb, var(--accent) 30%, transparent);
 }

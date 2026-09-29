@@ -1,7 +1,6 @@
 import "server-only";
 import { cfaData } from "@/data/cfa-data";
 import type { CFALevelKey, Difficulty, LevelStatus } from "@/data/cfa-types";
-import { parseNote } from "@/lib/cfa-math";
 
 export type CFAPreviewSample = {
   level: string;
@@ -14,12 +13,12 @@ export type CFAPreviewLevel = {
   key: CFALevelKey;
   label: string;
   status: LevelStatus;
-  noteCount: number;
-  topics: { name: string; difficulty: Difficulty; noteCount: number }[];
+  moduleCount: number;
+  topics: { name: string; difficulty: Difficulty; moduleCount: number }[];
 };
 
 export type CFAPreview = {
-  totals: { topics: number; notes: number; formulas: number };
+  totals: { levels: number; topics: number; modules: number; passed: number };
   levels: CFAPreviewLevel[];
   samples: CFAPreviewSample[];
 };
@@ -57,34 +56,24 @@ export function getCFAPreview(): CFAPreview {
     const topics = level.topics.map((topic) => ({
       name: topic.name,
       difficulty: topic.difficulty,
-      noteCount: topic.modules.reduce(
-        (sum, cfaModule) => sum + cfaModule.notes.length,
-        0,
-      ),
+      moduleCount: topic.modules.length,
     }));
 
     return {
       key,
       label: level.label,
       status: level.status,
-      noteCount: topics.reduce((sum, topic) => sum + topic.noteCount, 0),
+      moduleCount: topics.reduce((sum, topic) => sum + topic.moduleCount, 0),
       topics,
     };
   });
 
-  const allNotes = Object.values(cfaData).flatMap((level) =>
-    level.topics.flatMap((topic) =>
-      topic.modules.flatMap((cfaModule) => cfaModule.notes),
-    ),
-  );
-
   return {
     totals: {
+      levels: levels.length,
       topics: levels.reduce((sum, level) => sum + level.topics.length, 0),
-      notes: allNotes.length,
-      formulas: allNotes.filter((note) =>
-        parseNote(note).some((part) => part.type === "math"),
-      ).length,
+      modules: levels.reduce((sum, level) => sum + level.moduleCount, 0),
+      passed: levels.filter((level) => level.status === "passed").length,
     },
     levels,
     samples: SAMPLE_NOTES.map(([level, prefix]) =>

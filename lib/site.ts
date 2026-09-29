@@ -2,7 +2,7 @@ export const site = {
   name: "Varun Tirthani",
   tagline:
     "Investing, technology, and structured problem solving at the intersection of finance and engineering.",
-  url: "https://varuntirthani.com",
+  url: "https://my-portfolio-kappa-nine-57.vercel.app",
 } as const;
 
 export const nav = [

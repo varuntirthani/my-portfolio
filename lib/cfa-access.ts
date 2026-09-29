@@ -37,7 +37,30 @@ export function isCFAAdmin(email: string | undefined): boolean {
   return email?.trim().toLowerCase() === CFA_ADMIN_EMAIL;
 }
 
+// Local fallback so the admin is never locked out if email or Supabase is unavailable.
+// NODE_ENV is always "production" in deployed builds, so this cannot activate on the live site.
+function getLocalAdminViewer(): CFAViewer | null {
+  if (
+    process.env.NODE_ENV !== "development" ||
+    process.env.CFA_LOCAL_ADMIN !== "true"
+  ) {
+    return null;
+  }
+
+  return {
+    user: { id: "local-admin", email: CFA_ADMIN_EMAIL } as User,
+    isAdmin: true,
+    allowedLevels: CFA_LEVELS,
+    accessRequest: null,
+  };
+}
+
 export async function getCFAViewer(): Promise<CFAViewer | null> {
+  const localAdmin = getLocalAdminViewer();
+  if (localAdmin) {
+    return localAdmin;
+  }
+
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
