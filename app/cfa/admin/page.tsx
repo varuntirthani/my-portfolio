@@ -80,14 +80,16 @@ export default async function CFAAdminPage({
         )}
 
         <div className="mt-10 overflow-x-auto rounded-xl border border-[#1e1e2e]">
-          <table className="w-full min-w-3xl border-collapse text-left text-sm">
+          <table className="w-full min-w-[720px] border-collapse text-left text-sm">
             <thead className="bg-[#13131a] text-xs tracking-wide text-[#6b7280] uppercase">
               <tr>
                 <th className="px-5 py-4 font-medium">Email</th>
                 <th className="px-5 py-4 font-medium">Level</th>
                 <th className="px-5 py-4 font-medium">Requested</th>
                 <th className="px-5 py-4 font-medium">Status</th>
-                <th className="px-5 py-4 text-right font-medium">Action</th>
+                <th className="min-w-[11rem] px-5 py-4 text-right font-medium">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1e1e2e] bg-[#0f0f16]">
@@ -119,7 +121,7 @@ export default async function CFAAdminPage({
                     {request.status === "pending" ? (
                       <form
                         action={reviewCFAAccess}
-                        className="flex justify-end gap-2"
+                        className="flex flex-col items-end gap-2 sm:flex-row sm:justify-end"
                       >
                         <input
                           type="hidden"
@@ -130,7 +132,7 @@ export default async function CFAAdminPage({
                           type="submit"
                           name="decision"
                           value="rejected"
-                          className="rounded-md border border-red-400/30 px-3 py-1.5 text-xs text-red-300 hover:bg-red-400/10"
+                          className="shrink-0 rounded-md border border-red-400/30 px-3 py-2 text-xs text-red-300 hover:bg-red-400/10"
                         >
                           Reject
                         </button>
@@ -138,7 +140,7 @@ export default async function CFAAdminPage({
                           type="submit"
                           name="decision"
                           value="approved"
-                          className="rounded-md bg-[#3b82f6] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#2563eb]"
+                          className="shrink-0 rounded-md bg-[#3b82f6] px-3 py-2 text-xs font-medium text-white hover:bg-[#2563eb]"
                         >
                           Approve
                         </button>
@@ -146,7 +148,7 @@ export default async function CFAAdminPage({
                     ) : request.status === "approved" ? (
                       <form
                         action={reviewCFAAccess}
-                        className="flex justify-end gap-2"
+                        className="flex flex-col items-end gap-2 sm:flex-row sm:justify-end"
                       >
                         <input
                           type="hidden"
@@ -157,7 +159,7 @@ export default async function CFAAdminPage({
                           type="submit"
                           name="decision"
                           value="rejected"
-                          className="rounded-md border border-red-400/30 px-3 py-1.5 text-xs text-red-300 hover:bg-red-400/10"
+                          className="shrink-0 rounded-md border border-red-400/30 px-3 py-2 text-xs text-red-300 hover:bg-red-400/10"
                         >
                           Revoke
                         </button>
@@ -165,7 +167,7 @@ export default async function CFAAdminPage({
                           type="submit"
                           name="decision"
                           value="resend"
-                          className="rounded-md border border-[#1e1e2e] px-3 py-1.5 text-xs text-[#9ca3af] hover:border-[#3b82f6]/50 hover:text-[#f0f0f5]"
+                          className="shrink-0 rounded-md border border-[#1e1e2e] px-3 py-2 text-xs text-[#9ca3af] hover:border-[#3b82f6]/50 hover:text-[#f0f0f5]"
                         >
                           Resend link
                         </button>
