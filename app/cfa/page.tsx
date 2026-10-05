@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { signOut } from "@/app/cfa/actions";
 import { CFAHub } from "@/components/cfa/CFAHub";
 import { cfaData } from "@/data/cfa-data";
@@ -18,28 +17,19 @@ export const dynamic = "force-dynamic";
 export default async function CFAPage() {
   const viewer = await requireCFAUser();
 
-  if (!viewer.isAdmin && !viewer.accessRequest) {
-    redirect("/cfa/request-access");
-  }
-
-  if (viewer.accessRequest?.status === "rejected") {
-    redirect("/cfa/request-access");
-  }
-
   if (viewer.allowedLevels.length === 0) {
     return (
       <main className="min-h-[calc(100vh-8rem)] bg-[#0a0a0f] bg-[radial-gradient(#1e1e2e_1px,transparent_1px)] px-6 py-16 [background-size:20px_20px]">
         <div className="mx-auto max-w-lg rounded-2xl border border-[#1e1e2e] bg-[#13131a] p-8 text-center shadow-2xl">
           <p className="font-[family-name:var(--font-cfa-mono)] text-xs tracking-[0.2em] text-[#f59e0b] uppercase">
-            Approval pending
+            No active access
           </p>
           <h1 className="mt-3 font-[family-name:var(--font-cfa-mono)] text-2xl font-semibold text-[#f0f0f5]">
-            Your request is under review
+            Access is not currently active
           </h1>
           <p className="mt-3 text-sm leading-6 text-[#9ca3af]">
-            You requested Level{" "}
-            {viewer.accessRequest?.requested_level.slice(1)} access. You will
-            be able to open the notes after approval.
+            This account does not have approved access to the CFA notes. If
+            you think this is a mistake, contact Varun.
           </p>
           <form action={signOut} className="mt-8">
             <button

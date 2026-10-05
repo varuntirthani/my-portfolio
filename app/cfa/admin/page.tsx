@@ -21,14 +21,21 @@ function formatDate(value: string) {
   });
 }
 
-export default async function CFAAdminPage() {
+type CFAAdminPageProps = {
+  searchParams: Promise<{ sent?: string; failed?: string }>;
+};
+
+export default async function CFAAdminPage({
+  searchParams,
+}: CFAAdminPageProps) {
   await requireCFAAdmin();
+  const params = await searchParams;
 
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("cfa_access_requests")
     .select(
-      "id,user_id,email,requested_level,approved_level,status,created_at,reviewed_at",
+      "id,email,requested_level,approved_level,status,created_at,reviewed_at",
     )
     .order("created_at", { ascending: false });
 
@@ -57,6 +64,20 @@ export default async function CFAAdminPage() {
             Back to CFA Hub
           </Link>
         </div>
+
+        {params.sent && (
+          <p className="mt-8 rounded-lg border border-[#22c55e]/30 bg-[#22c55e]/10 px-4 py-3 text-sm text-[#86efac]">
+            Sign-in link sent to {params.sent}.
+          </p>
+        )}
+
+        {params.failed && (
+          <p className="mt-8 rounded-lg border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-300">
+            {params.failed} is approved, but the sign-in email could not be
+            sent. This is usually the hourly email limit. Use Resend link to
+            try again later.
+          </p>
+        )}
 
         <div className="mt-10 overflow-x-auto rounded-xl border border-[#1e1e2e]">
           <table className="w-full min-w-3xl border-collapse text-left text-sm">
@@ -120,6 +141,33 @@ export default async function CFAAdminPage() {
                           className="rounded-md bg-[#3b82f6] px-3 py-1.5 text-xs font-medium text-white hover:bg-[#2563eb]"
                         >
                           Approve
+                        </button>
+                      </form>
+                    ) : request.status === "approved" ? (
+                      <form
+                        action={reviewCFAAccess}
+                        className="flex justify-end gap-2"
+                      >
+                        <input
+                          type="hidden"
+                          name="requestId"
+                          value={request.id}
+                        />
+                        <button
+                          type="submit"
+                          name="decision"
+                          value="rejected"
+                          className="rounded-md border border-red-400/30 px-3 py-1.5 text-xs text-red-300 hover:bg-red-400/10"
+                        >
+                          Revoke
+                        </button>
+                        <button
+                          type="submit"
+                          name="decision"
+                          value="resend"
+                          className="rounded-md border border-[#1e1e2e] px-3 py-1.5 text-xs text-[#9ca3af] hover:border-[#3b82f6]/50 hover:text-[#f0f0f5]"
+                        >
+                          Resend link
                         </button>
                       </form>
                     ) : (

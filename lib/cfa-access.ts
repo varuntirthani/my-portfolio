@@ -17,7 +17,6 @@ export type CFAAccessStatus = "pending" | "approved" | "rejected";
 
 export type CFAAccessRequest = {
   id: string;
-  user_id: string;
   email: string;
   requested_level: CFALevelKey;
   approved_level: CFALevelKey | null;
@@ -84,9 +83,9 @@ export async function getCFAViewer(): Promise<CFAViewer | null> {
   const { data, error } = await supabase
     .from("cfa_access_requests")
     .select(
-      "id,user_id,email,requested_level,approved_level,status,created_at,reviewed_at",
+      "id,email,requested_level,approved_level,status,created_at,reviewed_at",
     )
-    .eq("user_id", user.id)
+    .eq("email", (user.email ?? "").trim().toLowerCase())
     .maybeSingle();
 
   if (error) {

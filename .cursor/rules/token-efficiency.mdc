@@ -1,0 +1,33 @@
+---
+description: Use tokens sparingly — read narrowly, act directly, stay concise
+alwaysApply: true
+---
+
+# Token efficiency
+
+Treat context and tool output as a limited budget. Do not burn tokens on work the user did not ask for.
+
+## Before reading or searching
+
+- Use the smallest tool that answers the question: `grep` or a targeted read before opening whole files or launching explore agents.
+- Do not re-read files already in context unless they changed.
+- For large files (e.g. `data/cfa-data.ts`), read only the section you need — never the full file unless unavoidable.
+- One discovery pass, then act. Avoid repeated searches for the same symbol or pattern.
+
+## While working
+
+- Prefer a focused diff over refactors, extra abstractions, or drive-by fixes.
+- Do not run build, test, or lint unless the change warrants it — batch verification when possible.
+- Do not start background servers or long polls unless the user needs live output.
+- Skip subagents for tasks solvable with one or two direct tool calls.
+
+## In responses
+
+- Be concise. No restating the user's question, no recap of steps already taken, no filler suggestions at the end.
+- Cite code with line ranges; do not paste entire files into chat.
+- Explain only what changed and why — skip obvious implementation narration.
+
+## When blocked
+
+- Ask one clear question instead of exploring broadly on speculation.
+- If a first approach fails, try one well-reasoned alternative before escalating scope.

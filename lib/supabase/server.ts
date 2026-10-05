@@ -1,6 +1,7 @@
 import "server-only";
 
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 function getSupabaseConfig() {
@@ -35,6 +36,21 @@ export async function createSupabaseServerClient() {
           // Server Components cannot write cookies. proxy.ts refreshes sessions.
         }
       },
+    },
+  });
+}
+
+// For sending sign-in emails on someone else's behalf: it must not read or
+// overwrite the current visitor's session cookies.
+export function createSupabaseStatelessClient() {
+  const { publishableKey, url } = getSupabaseConfig();
+
+  return createClient(url, publishableKey, {
+    auth: {
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+      flowType: "implicit",
+      persistSession: false,
     },
   });
 }

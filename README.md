@@ -37,17 +37,26 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## CFA access control
 
-The CFA Knowledge Hub uses Supabase magic-link authentication and manual,
-per-level approval.
+The CFA Knowledge Hub uses approval-first access. Visitors submit an email and
+one CFA level without signing in; the administrator is emailed, and approving
+the request creates the visitor's account and emails them a sign-in link.
+Unapproved emails never receive a link.
 
 1. Create a Supabase project.
-2. Run `supabase/migrations/001_cfa_access.sql` in the Supabase SQL editor.
+2. Run `supabase/migrations/001_cfa_access.sql` and then
+   `supabase/migrations/002_approval_first.sql` in the Supabase SQL editor.
 3. Copy `.env.example` to `.env.local` and add the project URL and publishable
    key.
 4. In Supabase Auth URL Configuration, set the Site URL to
    `https://my-portfolio-kappa-nine-57.vercel.app` and add the redirect URL
    `https://my-portfolio-kappa-nine-57.vercel.app/**`.
-5. Add the same environment variables to the Vercel project, with
+5. In Supabase Auth Email Templates, make the link in both the Confirm signup
+   and Magic Link templates point to
+   `{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email&next=/cfa`
+   so links work in any browser.
+6. Create a Resend account with the administrator email and set
+   `RESEND_API_KEY` to receive request notifications.
+7. Add the same environment variables to the Vercel project, with
    `NEXT_PUBLIC_SITE_URL=https://my-portfolio-kappa-nine-57.vercel.app`.
 
 Sign-in links only redirect to the deployed site. For local development, set
