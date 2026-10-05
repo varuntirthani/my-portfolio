@@ -7,7 +7,6 @@ export const site = {
 
 export const nav = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
   { label: "CFA Hub", href: "/cfa" },
   { label: "Blog", href: "/blogs" },
