@@ -46,8 +46,7 @@ export const cfaData: CFAData = {
               "Numerical (Quantitative) data: Continuous or Discrete. Categorical (Qualitative): Nominal (Unranked) or Ordinal (Ranked)",
               "Cross-Sectional Data: Multiple units at one point in time. Time-Series: One unit over time. Panel: Both",
               "Trimmed Mean: Exclude stated % of lowest and highest values. Winsorized Mean: Replace extremes with boundary values",
-              "Deviation from normality: Whether a return distribution deviates from a normal distribution can be assessed with a skewness check",
-              "Skewness: $\\frac{1}{n}\\sum_{i=1}^{N}\\frac{(X_i - \\bar{X})^3}{s^3}$",
+              "Skewness: Determination of whether a return distribution deviates from a normal distribution can be done by skewness check. $\\frac{1}{n}\\sum_{i=1}^{N}\\frac{(X_i - \\bar{X})^3}{s^3}$",
               "Kurtosis: A measure of the combined weight of the tails of a distribution relative to the rest of the distribution",
               "Excess Kurtosis: $\\frac{1}{n}\\sum_{i=1}^{N}\\frac{(X_i - \\bar{X})^4}{s^4} - 3$",
               "Kurtosis types: Leptokurtic = fat tails (excess kurtosis > 0), Platykurtic = thin tails, Mesokurtic = normal",
@@ -64,13 +63,13 @@ export const cfaData: CFAData = {
               "Bayes' Formula: $P(A|B) = \\frac{P(B|A)P(A)}{P(B)}$ reverses the 'given that' information",
               "Odds for E: $\\frac{P(E)}{1 - P(E)}$",
               "Odds against E: $\\frac{1 - P(E)}{P(E)}$",
-              "The expected value of a random variable is the probability-weighted average of the possible outcomes of the random variable",
-              "Expected value: $E(X) = \\sum_{i=1}^{N} P(X_i) X_i$, where $X_i$ is one of $n$ possible outcomes of $X$",
-              "The variance of a random variable is the expected value (the probability-weighted average) of squared deviations from the random variable's expected value",
+              "Expected value: The expected value of a random variable is the probability-weighted average of the possible outcomes of the random variable. $E(X) = \\sum_{i=1}^{N} P(X_i) X_i$, where $X_i$ is one of $n$ possible outcomes of $X$. Variance of a random variable: the expected value (the probability-weighted average) of squared deviations from the random variable's expected value",
               "Variance: $\\sigma^2(X) = \\sum_{i=1}^{N} P(X_i) [X_i - E(X)]^2$",
               "Covariance: $\\mathrm{Cov}(R_i, R_j) = E[(R_i - E(R_i))(R_j - E(R_j))]$",
               "Correlation: $\\rho(R_i, R_j) = \\frac{\\mathrm{Cov}(R_i, R_j)}{\\sigma(R_i)\\sigma(R_j)}$",
-              "Multinomial coefficient: \\frac{n!}{n_1! \\times n_2! \\times \\cdots \\times n_k!} — for labelling n objects across k groups"
+              "Multinomial coefficient: \\frac{n!}{n_1! \\times n_2! \\times \\cdots \\times n_k!} — for labelling n objects across k groups",
+              "Combinations ($C_r^n$): $\\frac{n!}{(n-r)!\\,r!}$",
+              "Permutations ($P_r^n$): $\\frac{n!}{(n-r)!}$"
             ]
           },
           {
