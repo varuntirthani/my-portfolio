@@ -65,7 +65,7 @@ export function CFANoteText({
           return (
             <span
               key={`${index}-label`}
-              className="font-medium text-[#f0f0f5]"
+              className="font-semibold text-[#f0f0f5]"
             >
               {part.content}
             </span>

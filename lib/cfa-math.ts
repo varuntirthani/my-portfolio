@@ -98,13 +98,13 @@ function pushSegment(parts: NotePart[], segment: string) {
   if (!trimmed) return;
 
   const colonMatch = trimmed.match(/^([^:=]+):\s*(.+)$/);
-  if (
-    colonMatch &&
-    !colonMatch[1].includes("=") &&
-    looksLikeMath(colonMatch[2])
-  ) {
+  if (colonMatch && !colonMatch[1].includes("=")) {
     parts.push({ type: "label", content: `${colonMatch[1]}: ` });
-    pushSegment(parts, colonMatch[2]);
+    if (looksLikeMath(colonMatch[2])) {
+      pushSegment(parts, colonMatch[2]);
+    } else {
+      parts.push({ type: "text", content: colonMatch[2] });
+    }
     return;
   }
 
