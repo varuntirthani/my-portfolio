@@ -144,12 +144,17 @@ function parseDelimitedNote(text: string): NotePart[] {
       return;
     }
 
-    const label = index === 0 ? segment.match(/^([^:]+:\s+)$/) : null;
-    parts.push(
-      label
-        ? { type: "label", content: label[1] }
-        : { type: "text", content: segment },
-    );
+    if (index === 0) {
+      const labelMatch = segment.match(/^([^:=]+:\s+)/);
+      if (labelMatch && !labelMatch[1].includes("=")) {
+        parts.push({ type: "label", content: labelMatch[1] });
+        const remainder = segment.slice(labelMatch[1].length);
+        if (remainder) parts.push({ type: "text", content: remainder });
+        return;
+      }
+    }
+
+    parts.push({ type: "text", content: segment });
   });
 
   return parts;
