@@ -76,12 +76,16 @@ export const cfaData: CFAData = {
             id: "mod-4",
             title: "Common Probability Distributions",
             notes: [
+              "Probability at a value: $P(X = x)$ is the probability that random variable $X$ takes on the value $x$",
+              "Cumulative distribution function (CDF): Probability that $X$ is less than or equal to a particular value $x$, $P(X \\leq x)$",
+              "Continuous uniform: $f(x) = \\frac{1}{b-a}$ for $a \\leq x \\leq b$ (0 otherwise). $F(x) = \\frac{x-a}{b-a}$ for $a \\leq x \\leq b$; 0 for $x < a$; 1 for $x > b$. Mean $\\mu = \\frac{a+b}{2}$, variance $\\sigma^2 = \\frac{(b-a)^2}{12}$",
               "Binomial distribution: $X \\sim B(n, p)$, with mean $μ = np$ and variance $σ^2 = np(1 − p)$",
               "Normal distribution: 68% within ±1σ, 95% within ±2σ, 99% within ±3σ",
-              "Z-score: Z = (X − μ) / σ. Safety-first ratio: SFR = [E(R_p) − R_L] / σ_p — choose the highest ratio",
-              "Lognormal: Bounded below by 0, right-skewed. ln Y is normally distributed",
+              "Z-score: Z = (X − μ) / σ. Safety-first ratio: SFR = [E(R_p) − R_L] / σ_p",
+              "Lognormal: Bounded below by 0, right-skewed. ln $Y$ is normally distributed. Mean $\\mu_L = e^{\\mu + 0.5\\sigma^2}$. Variance $\\sigma_L^2 = e^{2\\mu + \\sigma^2}[e^{\\sigma^2} - 1]$",
               "VaR: Loss threshold such that the probability of a larger loss over the specified period equals 1 − the confidence level",
-              "Central Limit Theorem: Sum/Mean of large number of independent RVs is normally distributed"
+              "Central Limit Theorem: Sum/Mean of large number of independent RVs is normally distributed",
+              "Continuously compounded return: The continuously compounded return of an asset over a period is equal to the natural log of the asset's price change during the period"
             ]
           },
           {
@@ -91,7 +95,8 @@ export const cfaData: CFAData = {
               "Sampling Error = Observed Statistic − True Population Parameter",
               "Stratified Random Sampling: Divide into strata, sample proportionally from each",
               "Cluster Sampling: Whole clusters are sampling units; only sampled clusters are included",
-              "Confidence Interval: Point Estimate ± Reliability Factor × Standard Error",
+              "Confidence intervals for $\\mu$: Known $\\sigma$ (normal population) — $\\bar{X} \\pm z \\frac{\\sigma}{\\sqrt{n}}$; large sample or unknown $\\sigma$ — $\\bar{X} \\pm z \\frac{s}{\\sqrt{n}}$; small sample with normal (or approximately normal) population — $\\bar{X} \\pm t \\frac{s}{\\sqrt{n}}$",
+              "Critical z-values: 90% CI — $z_{0.05} = 1.65$; 95% CI — $z_{0.025} = 1.96$; 99% CI — $z_{0.005} = 2.58$",
               "Bootstrap: Resampling with replacement from observed sample. Jackknife: Leave one out at a time (w/o replacement)",
               "Biases: Data Snooping, Sample Selection Bias, Look-Ahead Bias, Time-Period Bias"
             ]
